@@ -64,8 +64,8 @@ function setup() {
   c.attr("height", canvas.y);
   c.css("margin-top", ($(window).height()-canvas.y)/2);
   if (canvas.x <= 500) {
-    $("#counter p").css("font-size", "7.0rem");}
-}
+    $("#counter p").css("font-size", "7.0rem");
+  }
 
   var startPoint = new Vector(0,0);
   var endPoint = new Vector(canvas.x,canvas.y);
