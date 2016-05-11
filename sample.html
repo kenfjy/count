@@ -1,96 +1,72 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Accelerometer Javascript Test</title>
+    <title>Orientation Test</title>
     <meta name="viewport" content="width=device-width,user-scalable=yes" />
     <style>
 body {
   font-family: helvetica, arial, sans serif;
 }
-#sphere {
-  position: absolute; 
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  -webkit-radius: 50px;
-  background-color: blue;
-}
+    .garden {
+      position: relative;
+        width : 200px;
+      height: 200px;
+      border: 5px solid #CCC;
+      border-radius: 10px;
+    }
+
+    .ball {
+      position: absolute;
+        top   : 90px;
+        left  : 90px;
+        width : 20px;
+      height: 20px;
+      background: green;
+      border-radius: 100%;
+    }
     </style>
   </head>
 
   <body>
-    <div id="content">
-      <h1>Accelerometer Javascript Test</h1>
-      <div id="sphere"></div>
-      <ul>
-        <li>acceleration x: <span id="accelerationX"></span>g</li>
-        <li>acceleration y: <span id="accelerationY"></span>g</li>
-        <li>acceleration z: <span id="accelerationZ"></span>g</li>
-      </ul>
-      <ul>
-        <li>rotation alpha: <span id="rotationAlpha"></span>degree</li>
-        <li>rotation beta: <span id="rotationBeta"></span>degree</li>
-        <li>rotation gamma: <span id="rotationGamma"></span>degree</li>
-      </ul>
-
-      test: <span id="test"></span>
+    <div class="garden">
+      <div class="ball"></div>
     </div>
+
+    <pre class="output"></pre>
+
+
     <script type="text/javascript">
+var ball   = document.querySelector('.ball');
+var garden = document.querySelector('.garden');
+var output = document.querySelector('.output');
 
-var x = 0, y = 0,
-    vx = 0, vy = 0,
-    ax = 0, ay = 0;
+var maxX = garden.clientWidth  - ball.clientWidth;
+var maxY = garden.clientHeight - ball.clientHeight;
 
-var sphere = document.getElementById("sphere");
+function handleOrientation(event) {
+  var x = event.beta;  // In degree in the range [-180,180]
+  var y = event.gamma; // In degree in the range [-90,90]
 
-if (window.DeviceMotionEvent != undefined) {
-  window.ondevicemotion = function(e) {
-    var digit = 5;
+  output.innerHTML  = "beta : " + x + "\n";
+  output.innerHTML += "gamma: " + y + "\n";
 
-    ax = event.accelerationIncludingGravity.x * 5;
-    ay = event.accelerationIncludingGravity.y * 5;
-    document.getElementById("accelerationX").innerHTML = e.accelerationIncludingGravity.x.toFixed(digit);
-    document.getElementById("accelerationY").innerHTML = e.accelerationIncludingGravity.y.toFixed(digit);
-    document.getElementById("accelerationZ").innerHTML = e.accelerationIncludingGravity.z.toFixed(digit);
+  // Because we don't want to have the device upside down
+  // We constrain the x value to the range [-90,90]
+  if (x >  90) { x =  90};
+  if (x < -90) { x = -90};
 
-    if ( e.rotationRate ) {
-      document.getElementById("rotationAlpha").innerHTML = e.rotationRate.alpha.toFixed(digit);
-      document.getElementById("rotationBeta").innerHTML = e.rotationRate.beta.toFixed(digit);
-      document.getElementById("rotationGamma").innerHTML = e.rotationRate.gamma.toFixed(digit);
-    }   
-  }
+  // To make computation easier we shift the range of 
+  // x and y to [0,180]
+  x += 90;
+  y += 90;
 
-  setInterval( function() {
-    var landscapeOrientation = window.innerWidth/window.innerHeight > 1;
-    if ( landscapeOrientation) {
-      vx = vx + ay;
-      vy = vy + ax;
-    } else {
-      vy = vy - ay;
-      vx = vx + ax;
-    }
-    vx = vx * 0.98;
-    vy = vy * 0.98;
-    y = parseInt(y + vy / 50);
-    x = parseInt(x + vx / 50);
-
-    boundingBoxCheck();
-
-    sphere.style.top = y + "px";
-    sphere.style.left = x + "px";
-
-  }, 25);
-} 
-
-
-function boundingBoxCheck(){
-  if (x<0) { x = 0; vx = -vx; }
-  if (y<0) { y = 0; vy = -vy; }
-  if (x>document.documentElement.clientWidth-20) { x = document.documentElement.clientWidth-20; vx = -vx; }
-  if (y>document.documentElement.clientHeight-20) { y = document.documentElement.clientHeight-20; vy = -vy; }
-
+  // 10 is half the size of the ball
+  // It center the positioning point to the center of the ball
+  ball.style.top  = (maxX*x/180 - 10) + "px";
+  ball.style.left = (maxY*y/180 - 10) + "px";
 }
 
+window.addEventListener('deviceorientation', handleOrientation);} }}
     </script>
 
   </body>
