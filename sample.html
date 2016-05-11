@@ -46,10 +46,11 @@ if (window.DeviceMotionEvent != undefined) {
  //   document.getElementById("accelerationY").innerHTML = e.accelerationIncludingGravity.y;
  //   document.getElementById("accelerationZ").innerHTML = e.accelerationIncludingGravity.z;
 
+    var digit = 5;
     if ( e.rotationRate ) {
-      document.getElementById("rotationAlpha").innerHTML = e.rotationRate.alpha;
-      document.getElementById("rotationBeta").innerHTML = e.rotationRate.beta;
-      document.getElementById("rotationGamma").innerHTML = e.rotationRate.gamma;
+      document.getElementById("rotationAlpha").innerHTML = e.rotationRate.alpha.toFixed(digit);
+      document.getElementById("rotationBeta").innerHTML = e.rotationRate.beta.toFixed(digit);
+      document.getElementById("rotationGamma").innerHTML = e.rotationRate.gamma.toFixed(digit);
     }   
   }
 
