@@ -23,6 +23,11 @@ body {
       <h1>Accelerometer Javascript Test</h1>
       <div id="sphere"></div>
       <ul>
+        <li>acceleration x: <span id="accelerationX"></span>g</li>
+        <li>acceleration y: <span id="accelerationY"></span>g</li>
+        <li>acceleration z: <span id="accelerationZ"></span>g</li>
+      </ul>
+      <ul>
         <li>rotation alpha: <span id="rotationAlpha"></span>degree</li>
         <li>rotation beta: <span id="rotationBeta"></span>degree</li>
         <li>rotation gamma: <span id="rotationGamma"></span>degree</li>
@@ -40,13 +45,14 @@ var sphere = document.getElementById("sphere");
 
 if (window.DeviceMotionEvent != undefined) {
   window.ondevicemotion = function(e) {
- //   ax = event.accelerationIncludingGravity.x * 5;
- //   ay = event.accelerationIncludingGravity.y * 5;
- //   document.getElementById("accelerationX").innerHTML = e.accelerationIncludingGravity.x;
- //   document.getElementById("accelerationY").innerHTML = e.accelerationIncludingGravity.y;
- //   document.getElementById("accelerationZ").innerHTML = e.accelerationIncludingGravity.z;
-
     var digit = 5;
+
+    ax = event.accelerationIncludingGravity.x * 5;
+    ay = event.accelerationIncludingGravity.y * 5;
+    document.getElementById("accelerationX").innerHTML = e.accelerationIncludingGravity.x.toFixed(digit);
+    document.getElementById("accelerationY").innerHTML = e.accelerationIncludingGravity.y.toFixed(digit);
+    document.getElementById("accelerationZ").innerHTML = e.accelerationIncludingGravity.z.toFixed(digit);
+
     if ( e.rotationRate ) {
       document.getElementById("rotationAlpha").innerHTML = e.rotationRate.alpha.toFixed(digit);
       document.getElementById("rotationBeta").innerHTML = e.rotationRate.beta.toFixed(digit);
