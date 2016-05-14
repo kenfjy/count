@@ -1,6 +1,6 @@
 "use strict";
 
-var countTime = 600;
+var countTime = 30;
 var scp_x = 0.178, scp_y = 0.424, ecp_x = 0.516, ecp_y = 0.85;
 
 var endTime = 0;
@@ -8,22 +8,26 @@ var currentTime = 0;
 
 /* canvas */
 var ctx;
-var offset = 25;
+var pattern;
+
+/* canvas */
+var origin, canvas;
+// var offset = 25;
 
 /* timeline */
-var origin, canvas;
 var timeline;
-var timeFlag, timePoint;
+var timeFlag;
+var timelineSize = new Vector(500, 500);
 
 /* flags */
 var flag = {
   play : false,
-  reverse : true,
   timeline : true,
-  grid : false,
-  points : false,
   canvas : true,
-  help : false,
+//  reverse : true,
+//  grid : false,
+//  points : false,
+//  help : false,
   counter : false,
   sound : true
 }
@@ -52,6 +56,7 @@ $(function() {
 })
 
 function setup() {
+  /*
   var t_width = Math.floor(($(window).width()-offset*2)/100)*100;
   var t_height = Math.floor(($(window).height()-offset*2)/100)*100;
   canvas = new Vector(t_width, t_height);
@@ -59,21 +64,36 @@ function setup() {
   origin = new Vector(
       ($(window).width() - t_width)/2, 
       ($(window).height() - t_height)/2);
+      */
+  canvas = new Vector($(window).width(), $(window).height());
+  origin = new Vector(0, 0);
   var c = $("#canvas");
   c.attr("width", canvas.x);
   c.attr("height", canvas.y);
-  c.css("margin-top", ($(window).height()-canvas.y)/2);
+  //c.css("margin-top", ($(window).height()-canvas.y)/2);
+  /*
   if (canvas.x <= 500) {
     $("#counter p").css("font-size", "7.0rem");
   }
+  */
 
+  /*
   var startPoint = new Vector(0,0);
   var endPoint = new Vector(canvas.x,canvas.y);
   var startCtrlPoint = new Vector(canvas.x*scp_x,canvas.y*scp_y);
   var endCtrlPoint = new Vector(canvas.x*ecp_x,canvas.y*ecp_y);
   timeline = new Timeline(canvas, startPoint, startCtrlPoint, endCtrlPoint, endPoint);
+  */
+
+  var startPoint = new Vector(0,0);
+  var endPoint = new Vector(timelineSize.x, timelineSize.y);
+  var startCtrlPoint = new Vector(timelineSize.x*scp_x, timelineSize.y*scp_y);
+  var endCtrlPoint = new Vector(timelineSize.x*ecp_x,timelineSize.y*ecp_y);
+  timeline = new Timeline(timelineSize, startPoint, startCtrlPoint, endCtrlPoint, endPoint);
 
   calc();
+
+  pattern = setPattern();
 
   /* init views accordingly to flags */
   dispTime();
@@ -146,23 +166,19 @@ function loop() {
   }
 
   /* Display time */
-  if (!flag.reverse) {
-    setTime(currentTime);
-  } else {
-    setTime(countTime - currentTime);
-  }
+  setTime(currentTime);
 
   /* Start canvas */
   ctx.clearRect(0,0,canvas.x,canvas.y);
 
-
   /* Draw background */
-  if (flag.canvas && tp != false) {
+  // if (flag.canvas && tp != false) {
+  if (tp != false) {
     timeline.drawBackground(ctx, tp);
   }
 
-  if (flag.canvas) {
-    if (flag.grid) {
+  // if (flag.canvas) {
+//    if (flag.grid) {
       timeline.drawGridX(ctx, countTime);
       ctx.save();
       var countUp = 1;
@@ -170,7 +186,6 @@ function loop() {
         countUp = 10;
       }
       for (var i=0; i<=countTime; i+=countUp) {
-        /* grid lines */
         if (i != 0 && i != countTime) {
           ctx.beginPath();
           ctx.moveTo(timeFlag[i]/1000/countTime*timeline.width, 0);
@@ -179,30 +194,32 @@ function loop() {
         }
       }
       ctx.restore();
-    }
+ //   }
 
     if (flag.timeline) {
       timeline.drawCtrl(ctx);
       timeline.draw(ctx);
     }
 
+    /*
     if (flag.points) {
       ctx.save();
       ctx.fillStyle = "rgba(100, 90, 110, 0.5)";
       for (var i=0; i<=countTime; i++) {
-        /* time points */
         ctx.beginPath();
         ctx.arc(timePoint[i].x, timePoint[i].y, 5, 0, 2 * Math.PI, false);
         ctx.fill();
       }
       ctx.restore();
     }
+    */
 
     if (flag.timeline) {
       timeline.drawCurrent(ctx, tp)
     }
-  }
+  // }
 
+  drawPattern(pattern);
 }
 
 function setTime(time) {
@@ -215,7 +232,7 @@ function setTime(time) {
 function calc() {
   var y_step = timeline.height/countTime;
 
-  timePoint = new Object();
+  var timePoint = new Object();
   for (var i=0; i<=countTime; i++) {
     timePoint[i] = timeline.bezier.getX(timeline.height - y_step*i, timeline.height);
   }
@@ -260,6 +277,7 @@ function loadSounds(obj) {
   }
 }
 
+/* randomize */
 function randomTime() {
   var s = Math.floor(getRandom(500,700)/10)*10;
   countTime = s;
