@@ -3,7 +3,11 @@ function drawCircle(ctx, centerPoint, radius, active) {
   if (active) {
     ctx.fillStyle = "rgb(200,200,200)";
   } else {
-    ctx.fillStyle = "rgb(80,80,80)";
+    if (flag.play) {
+      ctx.fillStyle = "rgb(80,80,80)";
+    } else {
+      ctx.fillStyle = "rgb(50,50,50)";
+    }
   }
   ctx.beginPath();
   ctx.arc(centerPoint.x, centerPoint.y, radius, 0, 2 * Math.PI, false);

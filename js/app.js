@@ -112,7 +112,7 @@ function loop() {
 
   /* Draw background */
   ctx.save();
-  ctx.fillStyle = "rgb(50,50,50)";
+  ctx.fillStyle = "rgb(30,30,30)";
   ctx.beginPath();
   ctx.rect(0, 0, canvas.x, canvas.y);
   ctx.fill();
