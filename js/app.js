@@ -23,9 +23,9 @@ var timelineSize = new Vector(1000, 1000);
 /* flags */
 var flag = {
   play : false,
-  timeline : false,
+  timeline : true,
   canvas : true,
-  counter : true,
+  counter : false,
   sound : true
 }
 
