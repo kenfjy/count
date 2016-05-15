@@ -139,7 +139,7 @@ function setTime(time) {
   $("#counter_sec").text(sec.slice(-2));
   */
 
-  $("#counter_min").text(Math.abs(Math.round(angle)));
+  $("#counter_min").text(Math.round(angle));
   $("#counter_sec").text(Math.abs(Math.round(angle/30)));
 }
 
