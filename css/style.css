@@ -60,6 +60,8 @@ canvas {
   margin: 0.5rem 0;
 }
 #reload {
+  background-color: rgba(100,100,100,0);
+  border: none;
   display: block;
   width: 100px;
   height: 100px;
