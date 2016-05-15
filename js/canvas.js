@@ -4,9 +4,9 @@ function drawCircle(ctx, centerPoint, radius, active) {
     ctx.fillStyle = "rgb(200,200,200)";
   } else {
     if (flag.play) {
-      ctx.fillStyle = "rgb(60,60,60)";
-    } else {
       ctx.fillStyle = "rgb(50,50,50)";
+    } else {
+      ctx.fillStyle = "rgb(45,45,45)";
     }
   }
   ctx.beginPath();
