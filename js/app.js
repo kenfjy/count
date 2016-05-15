@@ -219,7 +219,7 @@ function loop() {
     }
   // }
 
-  drawPattern(pattern);
+  drawPattern(ctx,pattern);
 }
 
 function setTime(time) {

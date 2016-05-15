@@ -1,23 +1,16 @@
-function drawCircle(ctx, centrePoint, radius) {
+function drawCircle(ctx, centerPoint, radius) {
+  //console.log(centerPoint);
   ctx.beginPath();
-  ctx.moveTo(this.centrePoint.x+radius, this.centrePoint.y);
-  ctx.bezierCurveTo(
-      this.centrePoint.x, this.centrePoint.y+radius,
-      this.centrePoint.x-radius, this.centrePoint.y,
-      this.centrePoint.x, this.centrePoint.y-radius
-      );
-  ctx.stroke();
+  ctx.arc(centerPoint.x, centerPoint.y, radius, 0, 2 * Math.PI, false);
+  ctx.fill();
 }
 
-var _pattern = [3,4,5,4,3,4,5,4,3];
-var _gap = 6.5;
-
-function setPattern(_p, _g) {
-  var pattern = _p || _pattern;
-  var gap = _g || _gap;
+function setPattern(_pattern, _gap) {
+  var pattern = _pattern || [3,4,5,4,3,4,5,4,3];
+  var gap = _gap || 30;
   
   var center = new Vector(canvas.x/2, canvas.y/2);
-  var pattern_array = new Array();
+  var pattern_array = new Object();
 
   var pattern_gap_v = gap * Math.sqrt(3) / 2; // vertical
   var pattern_gap_h = gap; // horizontal
@@ -26,11 +19,18 @@ function setPattern(_p, _g) {
     var pos_y = (j+1-Math.ceil(pattern.length/2))*pattern_gap_v;
     for (var i=0; i<pattern[j]; i++) {
       var pos_x = (i-(pattern[j]-1)/2)*pattern_gap_h;
-      pattern_array.push(center.x+pos_x, center.y+pos_y);
+      var vector = new Vector(center.x+pos_x, center.y+pos_y);
+      pattern_array[Object.keys(pattern_array).length] = vector;
     }
   }
   return pattern_array;
 }
 
-function drawPattern() {
+function drawPattern(ctx, dots) {
+  var radius = 5;
+  var len = Object.keys(dots).length;
+  for (var i=0; i<len; i++) {
+    drawCircle(ctx, dots[i], radius);
+    // console.log(dots[i]);
+  }
 }
