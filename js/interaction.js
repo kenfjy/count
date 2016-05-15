@@ -1,13 +1,13 @@
 function mouseDown(event) {
-  timeline.mouseDown(event);
+  // timeline.mouseDown(event);
 }
 function mouseUp(event) {
-  timeline.mouseUp(event);
-  timeline.dumpCtrl();
-  calc();
+  // timeline.mouseUp(event);
+  // timeline.dumpCtrl();
+  // calc();
 }
 function mouseMove(event) {
-  timeline.mouseMove(event);
+  // timeline.mouseMove(event);
 }
 
 function keyDown(event) {

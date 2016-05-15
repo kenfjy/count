@@ -1,6 +1,6 @@
 "use strict";
 
-var countTime = 30;
+var countTime = 300;
 var scp_x = 0.178, scp_y = 0.424, ecp_x = 0.516, ecp_y = 0.85;
 
 var endTime = 0;
@@ -17,7 +17,7 @@ var origin, canvas;
 /* timeline */
 var timeline;
 var timeFlag;
-var timelineSize = new Vector(500, 500);
+var timelineSize = new Vector(1000, 1000);
 
 /* flags */
 var flag = {
@@ -147,11 +147,11 @@ function loop() {
         if (flag.sound) {
           playSound(sounds.alarm.buffer);
         }
-        currentTime = 0;
+        // currentTime = 0;
         break;
       }
     }
-    if (t_currentTime != currentTime && t_currentTime != countTime) {
+    if (t_currentTime != currentTime) {
       currentTime = t_currentTime;
       if (flag.sound) {
         playSound(sounds.tic.buffer);
@@ -179,14 +179,6 @@ function loop() {
   ctx.fill();
   ctx.restore();
 
-  /* Draw parameter */
-  // if (flag.canvas && tp != false) {
-  //  if (tp != false) {
-  //    timeline.drawBackground(ctx, tp);
-  //  }
-
-  // if (flag.canvas) {
-  //    if (flag.grid) {
   timeline.drawGridX(ctx, countTime);
   ctx.save();
   var countUp = 1;
@@ -228,7 +220,6 @@ function loop() {
   // }
 
   var ratio = 1-tp.y/timeline.height || 0; 
-  console.log(ratio);
   drawPattern(ctx,pattern, ratio);
 }
 
@@ -293,12 +284,22 @@ function randomTime() {
   countTime = s;
 }
 
+function setParams(angle) {
+  angle = angle / 180 * Math.PI;
+  var c_s = new Vector(Math.cos(angle)*timeline.width*0.1, Math.sin(angle)*timeline.width*0.1);
+  var c_e = new Vector(timeline.width-Math.cos(angle)*timeline.width*0.1, timeline.height-Math.sin(angle)*timeline.width*0.1);
+  console.log(c_s);
+  console.log(c_e);
+  timeline.setParams(c_s, c_e);
+  calc();
+}
+
 function randomParams() {
-  var c_s = new Vector(canvas.x, canvas.y);
-  var c_e = new Vector(canvas.x, canvas.y);
-  c_s.random(0, canvas.x*0.2, 0, canvas.y*0.2)
-    c_e.random(canvas.x*0.8, canvas.x, canvas.y*0.8, canvas.y)
-    console.log(c_s);
+  var c_s = new Vector(timeline.width, timeline.height);
+  var c_e = new Vector(timeline.width, timeline.height);
+  c_s.random(0, timeline.width*0.2, 0, timeline.width*0.2)
+    c_e.random(timeline.width*0.8, timeline.width, timeline.height*0.8, timeline.height)
+  console.log(c_s);
   console.log(c_e);
   timeline.setParams(c_s, c_e);
   calc();
