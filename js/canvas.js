@@ -1,8 +1,14 @@
-function drawCircle(ctx, centerPoint, radius) {
-  //console.log(centerPoint);
+function drawCircle(ctx, centerPoint, radius, active) {
+  ctx.save();
+  if (active) {
+    ctx.fillStyle = "rgb(200,200,200)";
+  } else {
+    ctx.fillStyle = "rgb(80,80,80)";
+  }
   ctx.beginPath();
   ctx.arc(centerPoint.x, centerPoint.y, radius, 0, 2 * Math.PI, false);
   ctx.fill();
+  ctx.restore();
 }
 
 function setPattern(_pattern, _gap) {
@@ -27,11 +33,15 @@ function setPattern(_pattern, _gap) {
   return pattern_array;
 }
 
-function drawPattern(ctx, dots) {
+function drawPattern(ctx, dots, ratio) {
   var radius = 40;
   var len = Object.keys(dots).length;
+  var limit = Math.floor(len * ratio);
   for (var i=0; i<len; i++) {
-    drawCircle(ctx, dots[i], radius);
-    // console.log(dots[i]);
+    if (limit > i) {
+      drawCircle(ctx, dots[len-1-i], radius, true);
+    } else {
+      drawCircle(ctx, dots[len-1-i], radius, false);
+    }
   }
 }

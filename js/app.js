@@ -172,54 +172,64 @@ function loop() {
   ctx.clearRect(0,0,canvas.x,canvas.y);
 
   /* Draw background */
+  ctx.save();
+  ctx.fillStyle = "rgb(50,50,50)";
+  ctx.beginPath();
+  ctx.rect(0, 0, canvas.x, canvas.y);
+  ctx.fill();
+  ctx.restore();
+
+  /* Draw parameter */
   // if (flag.canvas && tp != false) {
-  if (tp != false) {
-    timeline.drawBackground(ctx, tp);
-  }
+  //  if (tp != false) {
+  //    timeline.drawBackground(ctx, tp);
+  //  }
 
   // if (flag.canvas) {
-//    if (flag.grid) {
-      timeline.drawGridX(ctx, countTime);
-      ctx.save();
-      var countUp = 1;
-      if (countTime >= 100) {
-        countUp = 10;
-      }
-      for (var i=0; i<=countTime; i+=countUp) {
-        if (i != 0 && i != countTime) {
-          ctx.beginPath();
-          ctx.moveTo(timeFlag[i]/1000/countTime*timeline.width, 0);
-          ctx.lineTo(timeFlag[i]/1000/countTime*timeline.width, timeline.height);
-          ctx.stroke();
-        }
-      }
-      ctx.restore();
- //   }
-
-    if (flag.timeline) {
-      timeline.drawCtrl(ctx);
-      timeline.draw(ctx);
+  //    if (flag.grid) {
+  timeline.drawGridX(ctx, countTime);
+  ctx.save();
+  var countUp = 1;
+  if (countTime >= 100) {
+    countUp = 10;
+  }
+  for (var i=0; i<=countTime; i+=countUp) {
+    if (i != 0 && i != countTime) {
+      ctx.beginPath();
+      ctx.moveTo(timeFlag[i]/1000/countTime*timeline.width, 0);
+      ctx.lineTo(timeFlag[i]/1000/countTime*timeline.width, timeline.height);
+      ctx.stroke();
     }
+  }
+  ctx.restore();
+  //   }
 
-    /*
-    if (flag.points) {
-      ctx.save();
-      ctx.fillStyle = "rgba(100, 90, 110, 0.5)";
-      for (var i=0; i<=countTime; i++) {
-        ctx.beginPath();
-        ctx.arc(timePoint[i].x, timePoint[i].y, 5, 0, 2 * Math.PI, false);
-        ctx.fill();
-      }
-      ctx.restore();
-    }
-    */
+  if (flag.timeline) {
+    timeline.drawCtrl(ctx);
+    timeline.draw(ctx);
+  }
 
-    if (flag.timeline) {
-      timeline.drawCurrent(ctx, tp)
-    }
+  /*
+     if (flag.points) {
+     ctx.save();
+     ctx.fillStyle = "rgba(100, 90, 110, 0.5)";
+     for (var i=0; i<=countTime; i++) {
+     ctx.beginPath();
+     ctx.arc(timePoint[i].x, timePoint[i].y, 5, 0, 2 * Math.PI, false);
+     ctx.fill();
+     }
+     ctx.restore();
+     }
+     */
+
+  if (flag.timeline) {
+    timeline.drawCurrent(ctx, tp)
+  }
   // }
 
-  drawPattern(ctx,pattern);
+  var ratio = 1-tp.y/timeline.height || 0; 
+  console.log(ratio);
+  drawPattern(ctx,pattern, ratio);
 }
 
 function setTime(time) {
