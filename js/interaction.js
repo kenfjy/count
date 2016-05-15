@@ -128,11 +128,5 @@ function setVisible(elem, flag) {
 }
 
 function handleOrientation(event) {
-  angle = Math.floor(event.beta);
-  /*
-  output.innerHTML  = "beta : " + x + "\n";
-
-  var y = event.gamma;
-  output.innerHTML += "gamma: " + y + "\n";
-  */
+  angle = Math.abs(Math.floor(event.beta/30));
 }
