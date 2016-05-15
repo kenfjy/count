@@ -7,7 +7,7 @@ function drawCircle(ctx, centerPoint, radius) {
 
 function setPattern(_pattern, _gap) {
   var pattern = _pattern || [3,4,5,4,3,4,5,4,3];
-  var gap = _gap || 30;
+  var gap = _gap || 80;
   
   var center = new Vector(canvas.x/2, canvas.y/2);
   var pattern_array = new Object();
@@ -27,7 +27,7 @@ function setPattern(_pattern, _gap) {
 }
 
 function drawPattern(ctx, dots) {
-  var radius = 5;
+  var radius = 15;
   var len = Object.keys(dots).length;
   for (var i=0; i<len; i++) {
     drawCircle(ctx, dots[i], radius);
