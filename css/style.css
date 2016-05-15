@@ -61,6 +61,7 @@ canvas {
 }
 #reload {
   background-color: rgba(100,100,100,0);
+  opacity: 0;
   border: none;
   display: block;
   width: 100px;
