@@ -65,7 +65,8 @@ function setup() {
       ($(window).width() - t_width)/2, 
       ($(window).height() - t_height)/2);
       */
-  canvas = new Vector($(window).width(), $(window).height());
+  // canvas = new Vector($(window).width(), $(window).height());
+  canvas = new Vector(screen.width, screen.height);
   origin = new Vector(0, 0);
   var c = $("#canvas");
   c.attr("width", canvas.x);
