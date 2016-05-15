@@ -157,8 +157,9 @@ function randomTime() {
 
 function setParams(angle) {
   angle = angle / 180 * Math.PI;
-  var c_s = new Vector(Math.cos(angle)*timeline.width*0.1, Math.sin(angle)*timeline.width*0.1);
-  var c_e = new Vector(timeline.width-Math.cos(angle)*timeline.width*0.1, timeline.height-Math.sin(angle)*timeline.width*0.1);
+  var ratio = 0.2;
+  var c_s = new Vector(Math.cos(angle)*timeline.width*ratio, Math.sin(angle)*timeline.width*ratio);
+  var c_e = new Vector(timeline.width-Math.sin(angle)*timeline.width*ratio, timeline.height-Math.cos(angle)*timeline.width*ratio);
   console.log(c_s);
   console.log(c_e);
   timeline.setParams(c_s, c_e);

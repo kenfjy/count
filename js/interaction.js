@@ -128,5 +128,10 @@ function setVisible(elem, flag) {
 }
 
 function handleOrientation(event) {
-  angle = event.beta;
+  var t_angle = Math.round(event.beta/30);
+  if (angle != t_angle) {
+    var angle_gap = 8;
+    angle = t_angle;
+    setParams(angle * angle_gap + (45 - angle_gap*1.5));
+  }
 }
