@@ -1,13 +1,13 @@
 function mouseDown(event) {
-  // timeline.mouseDown(event);
+//  timeline.mouseDown(event);
 }
 function mouseUp(event) {
-  // timeline.mouseUp(event);
-  // timeline.dumpCtrl();
-  // calc();
+//  timeline.mouseUp(event);
+//  timeline.dumpCtrl();
+//  calc();
 }
 function mouseMove(event) {
-  // timeline.mouseMove(event);
+//  timeline.mouseMove(event);
 }
 
 function keyDown(event) {
@@ -125,4 +125,14 @@ function setVisible(elem, flag) {
   } else {
     elem.css("visibility", "visible");
   }
+}
+
+function handleOrientation(event) {
+  angle = event.beta;
+  /*
+  output.innerHTML  = "beta : " + x + "\n";
+
+  var y = event.gamma;
+  output.innerHTML += "gamma: " + y + "\n";
+  */
 }
