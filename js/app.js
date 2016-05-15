@@ -33,6 +33,7 @@ var flag = {
 }
 
 /* audio */
+/*
 var audioContext, gainNode;
 var ticBuffer = null, alarmBuffer = null;
 var sounds = {
@@ -43,6 +44,7 @@ var sounds = {
     src : 'https://kenfjy.github.io/CountingDown/asset/alarm_cut.ogg'
   }
 };
+*/
 /* 
  * Music Credits
  * TIC : http://www.soundjay.com/clock/clock-ticking-2.mp3
@@ -101,6 +103,7 @@ function setup() {
   dispCanvas();
 
   /* init audiocontext */
+  /*
   try {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     audioContext = new AudioContext();
@@ -111,6 +114,7 @@ function setup() {
     flag.sound = false;
     alert('Web Audio API is not supported in this browser');
   }
+  */
 }
 
 function draw() {
@@ -144,18 +148,22 @@ function loop() {
       if (t_currentTime == countTime) {
         console.log("stop");
         flag.play = false;
+        /*
         if (flag.sound) {
           playSound(sounds.alarm.buffer);
         }
+        */
         // currentTime = 0;
         break;
       }
     }
     if (t_currentTime != currentTime) {
       currentTime = t_currentTime;
+      /*
       if (flag.sound) {
         playSound(sounds.tic.buffer);
       }
+      */
     }
 
     tp = timeline.bezier.getY(timeline.width*ellapsedTime/1000/countTime, timeline.width);
@@ -245,6 +253,7 @@ function calc() {
   }
 }
 
+/*
 function playSound(buffer) {
   var src = audioContext.createBufferSource();
   src.buffer = buffer;
@@ -278,4 +287,5 @@ function loadSounds(obj) {
     }
   }
 }
+*/
 
