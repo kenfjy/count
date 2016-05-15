@@ -68,6 +68,7 @@ function draw() {
     .mousedown({canvas : cv}, mouseDown)
     .mouseup(mouseUp)
     .mousemove({canvas : cv}, mouseMove);
+  $("#reload").click(reloadPage);
 
   /* start animation */
   if (cv.getContext) {
@@ -150,4 +151,9 @@ function calc() {
   for (var i=0; i<=countTime; i++) {
     timeFlag[i] = timePoint[i].x * (countTime * 1000) / timeline.width;
   }
+}
+
+function reloadPage() {
+  console.log("reload");
+  location.reload(false);
 }

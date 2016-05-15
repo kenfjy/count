@@ -59,4 +59,12 @@ canvas {
 #help li {
   margin: 0.5rem 0;
 }
+#reload {
+  display: block;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
