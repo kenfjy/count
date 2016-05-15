@@ -23,7 +23,7 @@ var timelineSize = new Vector(1000, 1000);
 /* flags */
 var flag = {
   play : false,
-  timeline : true,
+  timeline : false,
   canvas : true,
   counter : true,
   sound : true
@@ -132,15 +132,10 @@ function loop() {
 }
 
 function setTime(time) {
-  /*
   var min = "0" + Math.floor(time/60);
   var sec = "0" + time%60;
   $("#counter_min").text(min.slice(-2));
   $("#counter_sec").text(sec.slice(-2));
-  */
-
-  $("#counter_min").text(angle);
-  $("#counter_sec").text('--');
 }
 
 function calc() {
