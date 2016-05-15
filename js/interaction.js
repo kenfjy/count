@@ -2,6 +2,8 @@ function mouseDown(event) {
 //  timeline.mouseDown(event);
 }
 function mouseUp(event) {
+  flag.play = !flag.play;
+  playTimer();
 //  timeline.mouseUp(event);
 //  timeline.dumpCtrl();
 //  calc();
