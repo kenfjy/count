@@ -148,3 +148,30 @@ function Timeline(c, c1, c2, c3, c4) {
   }
 
 } // timeline
+
+/* params... */
+function randomTime() {
+  var s = Math.floor(getRandom(500,700)/10)*10;
+  countTime = s;
+}
+
+function setParams(angle) {
+  angle = angle / 180 * Math.PI;
+  var c_s = new Vector(Math.cos(angle)*timeline.width*0.1, Math.sin(angle)*timeline.width*0.1);
+  var c_e = new Vector(timeline.width-Math.cos(angle)*timeline.width*0.1, timeline.height-Math.sin(angle)*timeline.width*0.1);
+  console.log(c_s);
+  console.log(c_e);
+  timeline.setParams(c_s, c_e);
+  calc();
+}
+
+function randomParams() {
+  var c_s = new Vector(timeline.width, timeline.height);
+  var c_e = new Vector(timeline.width, timeline.height);
+  c_s.random(0, timeline.width*0.2, 0, timeline.width*0.2)
+    c_e.random(timeline.width*0.8, timeline.width, timeline.height*0.8, timeline.height)
+  console.log(c_s);
+  console.log(c_e);
+  timeline.setParams(c_s, c_e);
+  calc();
+}

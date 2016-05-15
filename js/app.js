@@ -1,7 +1,7 @@
 "use strict";
 
 var countTime = 300;
-var scp_x = 0.178, scp_y = 0.424, ecp_x = 0.516, ecp_y = 0.85;
+var scp_x = 0.1, scp_y = 0.1, ecp_x = 0.9, ecp_y = 0.9;
 
 var endTime = 0;
 var currentTime = 0;
@@ -28,7 +28,7 @@ var flag = {
 //  grid : false,
 //  points : false,
 //  help : false,
-  counter : false,
+  counter : true,
   sound : true
 }
 
@@ -179,6 +179,7 @@ function loop() {
   ctx.fill();
   ctx.restore();
 
+  /* Draw grids
   timeline.drawGridX(ctx, countTime);
   ctx.save();
   var countUp = 1;
@@ -194,7 +195,7 @@ function loop() {
     }
   }
   ctx.restore();
-  //   }
+  */
 
   if (flag.timeline) {
     timeline.drawCtrl(ctx);
@@ -278,29 +279,3 @@ function loadSounds(obj) {
   }
 }
 
-/* randomize */
-function randomTime() {
-  var s = Math.floor(getRandom(500,700)/10)*10;
-  countTime = s;
-}
-
-function setParams(angle) {
-  angle = angle / 180 * Math.PI;
-  var c_s = new Vector(Math.cos(angle)*timeline.width*0.1, Math.sin(angle)*timeline.width*0.1);
-  var c_e = new Vector(timeline.width-Math.cos(angle)*timeline.width*0.1, timeline.height-Math.sin(angle)*timeline.width*0.1);
-  console.log(c_s);
-  console.log(c_e);
-  timeline.setParams(c_s, c_e);
-  calc();
-}
-
-function randomParams() {
-  var c_s = new Vector(timeline.width, timeline.height);
-  var c_e = new Vector(timeline.width, timeline.height);
-  c_s.random(0, timeline.width*0.2, 0, timeline.width*0.2)
-    c_e.random(timeline.width*0.8, timeline.width, timeline.height*0.8, timeline.height)
-  console.log(c_s);
-  console.log(c_e);
-  timeline.setParams(c_s, c_e);
-  calc();
-}
