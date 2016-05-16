@@ -1,6 +1,6 @@
 "use strict";
 
-var countTime = 300;
+var countTime = 60;
 var scp_x = 0.1, scp_y = 0.1, ecp_x = 0.9, ecp_y = 0.9;
 
 var endTime = 0;
